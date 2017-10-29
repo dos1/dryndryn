@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Dryń Dryń</title>
+<style>
+#mchammer, .clock {
+  position: absolute;
+  top: -100%;
+  left: -100%;
+}
+#score {
+  position: absolute;
+  bottom: 0px;
+  right: 100px;
+  z-index: 9999;
+  font-size: 100px;
+  font-family: 'Comic Sans MS', 'Comic Sans', 'Impact', cursive, sans-serif;
+}
+.clock { cursor: pointer; }
+#mchammer { z-index: 999; pointer-events: none; }
+body {
+  background-color: rebeccapurple;
+  color: white;
+  text-shadow: 0px 0px 10px black;
+  overflow: hidden;
+}
+</style>
+</head>
+<body>
+<!--<h1>Dryń Dryń</h1>
+<p>Time is changing. Don't let it. Break as many time changing clocks as you can!</p>
+-->
+<p id="score">0</p>
+<img src="hammer.png" id="mchammer" />
+
+<script src="jquery-3.2.1.min.js"></script>
+<script>
+$(function() {
+
+  var score = 0;
+
+  $(document).on('mousemove', function(ev) {
+    $('#mchammer').css('left', (ev.pageX - 40) + 'px');
+    $('#mchammer').css('top', (ev.pageY - 40) + 'px');
+  });
+
+
+  setInterval(function() {
+    var clock = $('<div class="clock"><audio autoplay loop></audio><img src="clock.gif" /></div>').appendTo('body');
+    clock.css('left', (Math.random()*80 + 10) + '%');
+    clock.css('top', (Math.random()*80 + 10) + '%');
+    clock.find('audio').attr('src', Math.ceil(Math.random()*11) + '.ogg');
+    clock.on('click', function() {
+      clock.remove();
+      $('<audio src="bam.ogg" autoplay></audio>').appendTo('body');
+      score++;
+      $('#score').text(score);
+    });
+  }, 1000);
+});
+</script>
+
+</body>
+</html>
